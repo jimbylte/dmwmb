@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Boutique dmwmb</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@400;500;600;700&family=Permanent+Marker&display=swap">
+<style>
+/* Layout : bandeau démo, en-tête collant, hero sombre "tropic chic rebel" en 2 colonnes, grille 3 colonnes, fiche produit, panier latéral, paiement 2 colonnes */
+:root{
+  --bg:#F3EDE3; --surface:#FBF8F3; --photo:#EFE7DA; --ink:#221A14; --muted:#6E6257; --line:#E2D8C8;
+  --accent:#A8341F; --accent-ink:#FFF8F0; --gold:#B8812A; --night:#1E1712; --night-ink:#F3EADC;
+  --demo:#F2C14E; --demo-ink:#221A14; --ok:#2E6B45; --err:#B3261E;
+  --display:"DM Serif Display", Georgia, "Times New Roman", serif;
+  --body:"Karla", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --rebel:"Permanent Marker", "Comic Sans MS", cursive;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#15100C; --surface:#1F1813; --photo:#EFE7DA; --ink:#F1E9DD; --muted:#B5A795; --line:#3A2F26;
+  --accent:#E0664D; --accent-ink:#1A0F0A; --gold:#E0B055; --night:#0E0A07; --night-ink:#F3EADC;
+  --demo:#E3B440; --demo-ink:#1A140E; --ok:#62C08A; --err:#FF8A80; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15100C; --surface:#1F1813; --photo:#EFE7DA; --ink:#F1E9DD; --muted:#B5A795; --line:#3A2F26;
+  --accent:#E0664D; --accent-ink:#1A0F0A; --gold:#E0B055; --night:#0E0A07; --night-ink:#F3EADC;
+  --demo:#E3B440; --demo-ink:#1A140E; --ok:#62C08A; --err:#FF8A80; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+a{color:inherit}
+img{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.05;text-wrap:balance;margin:0}
+.rebel{font-family:var(--rebel);letter-spacing:.01em}
+
+.demo-bar{background:var(--demo);color:var(--demo-ink);font-size:13px;font-weight:700}
+.demo-bar .wrap{display:flex;gap:6px 16px;flex-wrap:wrap;justify-content:center;padding-block:7px;text-align:center}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo .palm{width:30px;height:34px;background:var(--ink);-webkit-mask:url(img/palm_black.png) center/contain no-repeat;mask:url(img/palm_black.png) center/contain no-repeat}
+.logo b{font-family:var(--display);font-weight:400;font-size:28px;letter-spacing:.01em;line-height:1}
+nav.main{display:flex;gap:26px;font-weight:600;font-size:15px}
+nav.main a{text-decoration:none;color:var(--muted)}
+nav.main a:hover{color:var(--ink)}
+.cart-btn{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:8px 14px;display:flex;gap:8px;align-items:center;font-weight:700}
+.cart-btn b{background:var(--accent);color:var(--accent-ink);border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:12px;padding:0 6px}
+@media (max-width:680px){nav.main{display:none}}
+
+/* Hero */
+.hero{background:var(--night);color:var(--night-ink);overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding-block:52px}
+.hero .eyebrow{font-family:var(--rebel);color:var(--gold);font-size:22px;transform:rotate(-2deg);display:inline-block;margin-bottom:14px}
+.hero h1{font-size:clamp(40px,6.2vw,78px)}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero p{color:color-mix(in srgb,var(--night-ink) 75%,transparent);max-width:44ch;font-size:18px;margin:18px 0 26px}
+.hero-pic{position:relative;justify-self:center;width:100%;max-width:430px}
+.hero-pic img{width:100%;height:auto;border-radius:6px;background:var(--photo);box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.hero-pic .stamp{position:absolute;left:-18px;bottom:28px;background:var(--accent);color:#FFF8F0;font-family:var(--rebel);font-size:17px;padding:8px 14px;transform:rotate(-6deg);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.btn{border:0;border-radius:4px;padding:14px 24px;font-weight:700;letter-spacing:.02em;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.hero .btn.ghost{background:transparent;color:var(--night-ink);border:1px solid color-mix(in srgb,var(--night-ink) 35%,transparent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.perks{display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;margin-top:26px;color:color-mix(in srgb,var(--night-ink) 70%,transparent)}
+.perks span::before{content:"✦ ";color:var(--gold)}
+@media (max-width:800px){.hero .wrap{grid-template-columns:1fr;padding-block:36px}.hero-pic{max-width:330px}.hero-pic .stamp{left:-6px}}
+
+/* Catalogue */
+section.cat{padding-block:48px 64px}
+.cat-head{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.cat-head h2{font-size:40px}
+.cat-head p{margin:4px 0 0;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 22px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.grid{gap:18px 12px}}
+.card{background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:10px}
+.card .pic{background:var(--photo);border-radius:4px;aspect-ratio:4/5;position:relative;overflow:hidden}
+.card .pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.card:hover .pic img{transform:scale(1.04)}
+.tag{position:absolute;top:10px;left:10px;background:var(--night);color:var(--night-ink);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:3px}
+.tag.red{background:var(--accent);color:#FFF8F0}
+.card .meta{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.card h3{font-size:21px}
+.card .price{font-weight:700;font-variant-numeric:tabular-nums}
+.card .sub{color:var(--muted);font-size:14px;margin-top:-4px}
+.swatches{display:flex;gap:5px;flex-shrink:0}
+.swatches span{width:13px;height:13px;border-radius:50%;border:1px solid var(--line)}
+.swatches span.on{outline:1.5px solid var(--ink);outline-offset:1.5px}
+
+/* Bandeau manifeste */
+.manifesto{border-block:1px solid var(--line);background:var(--surface)}
+.manifesto .wrap{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center;padding-block:36px}
+.manifesto .mark{width:110px;height:142px;background:var(--ink);-webkit-mask:url(img/logo_black.png) center/contain no-repeat;mask:url(img/logo_black.png) center/contain no-repeat}
+.manifesto h2{font-size:30px}
+.manifesto p{color:var(--muted);max-width:62ch;margin:8px 0 0}
+@media (max-width:560px){.manifesto .wrap{grid-template-columns:1fr}.manifesto .mark{width:80px;height:104px}}
+
+/* Fiche produit */
+.product{padding-block:28px 64px}
+.back{background:none;border:0;padding:0;color:var(--muted);font-weight:600;margin-bottom:18px}
+.p-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:start}
+.p-grid > *{min-width:0}
+@media (max-width:800px){.p-grid{grid-template-columns:1fr;gap:22px}}
+.p-pic{background:var(--photo);border-radius:4px;aspect-ratio:4/5;overflow:hidden}
+.p-pic img{width:100%;height:100%;object-fit:cover}
+.thumbs{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.thumbs button{width:64px;aspect-ratio:4/5;border:1px solid var(--line);padding:0;border-radius:3px;overflow:hidden;background:var(--photo)}
+.thumbs button[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
+.thumbs img{width:100%;height:100%;object-fit:cover}
+.p-info .kind{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.p-info h1{font-size:clamp(34px,4.4vw,52px);margin-top:6px}
+.p-info .price{font-size:24px;font-weight:700;margin:10px 0 14px;font-variant-numeric:tabular-nums}
+.p-info p.desc{color:var(--muted);max-width:52ch}
+.opt{margin-top:22px}
+.opt-label{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:9px;display:flex;justify-content:space-between;gap:8px}
+.opt-label a{letter-spacing:0;text-transform:none;font-weight:600}
+.opt-label .val{text-transform:none;letter-spacing:0;color:var(--ink)}
+.sizes{display:flex;flex-wrap:wrap;gap:8px}
+.size{min-width:54px;border:1px solid var(--line);background:var(--surface);border-radius:4px;padding:10px 12px;font-weight:700}
+.size[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.colors{display:flex;gap:12px;flex-wrap:wrap}
+.color{width:38px;height:38px;border-radius:50%;border:1px solid rgba(0,0,0,.18);padding:0}
+.color[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:3px}
+.qty{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.qty button{border:0;background:none;width:42px;height:46px;font-size:18px}
+.qty span{min-width:36px;display:grid;place-items:center;font-weight:700;font-variant-numeric:tabular-nums}
+.buy-row{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.buy-row .btn{flex:1;min-width:200px}
+.facts{margin-top:28px;border-top:1px solid var(--line)}
+.facts details{border-bottom:1px solid var(--line);padding:13px 0}
+.facts summary{font-weight:700;cursor:pointer}
+.facts p{color:var(--muted);margin:8px 0 0}
+.tscroll{overflow-x:auto}
+table.sizes-t{border-collapse:collapse;font-size:14px;margin-top:8px;font-variant-numeric:tabular-nums}
+table.sizes-t td,table.sizes-t th{border:1px solid var(--line);padding:6px 10px;text-align:center}
+.error{color:var(--err);font-size:14px;margin-top:8px;min-height:1.2em}
+
+/* Panier latéral */
+.scrim{position:fixed;inset:0;background:rgba(14,10,7,.5);z-index:20}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);z-index:21;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px);box-shadow:-20px 0 40px rgba(0,0,0,.2)}
+.drawer header{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line)}
+.drawer header h2{font-size:26px}
+.x{background:none;border:0;font-size:24px;line-height:1;padding:4px 8px}
+.lines{flex:1;overflow:auto;padding:6px 20px}
+.line{display:grid;grid-template-columns:64px 1fr auto;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);align-items:center}
+.line .thumb{background:var(--photo);border-radius:3px;aspect-ratio:4/5;overflow:hidden}
+.line .thumb img{width:100%;height:100%;object-fit:cover}
+.line h4{margin:0;font-size:15px}
+.line small{color:var(--muted);display:block}
+.line .rm{background:none;border:0;color:var(--muted);font-size:13px;padding:0;text-decoration:underline}
+.line .lp{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+.drawer footer{padding:16px 20px;border-top:1px solid var(--line);display:grid;gap:10px}
+.row{display:flex;justify-content:space-between;gap:12px;font-variant-numeric:tabular-nums}
+.row.total{font-weight:700;font-size:18px}
+.muted{color:var(--muted)}
+.empty{padding:40px 0;text-align:center;color:var(--muted)}
+.ship-meter{font-size:14px;color:var(--muted)}
+.ship-meter .bar{height:6px;background:var(--bg);border-radius:6px;margin-top:6px;overflow:hidden}
+.ship-meter .bar i{display:block;height:100%;background:var(--ok);border-radius:6px}
+
+/* Paiement */
+.checkout{padding-block:28px 64px}
+.co-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:36px;align-items:start}
+.co-grid > *{min-width:0}
+@media (max-width:860px){.co-grid{grid-template-columns:1fr}.co-sum{order:-1}}
+.steps{display:flex;gap:8px;font-size:14px;color:var(--muted);margin-bottom:18px;flex-wrap:wrap}
+.steps b{color:var(--ink)}
+fieldset{border:0;padding:0;margin:0 0 28px}
+legend{font-family:var(--display);font-size:26px;margin-bottom:12px;padding:0}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.f-grid .full{grid-column:1/-1}
+@media (max-width:480px){.f-grid{grid-template-columns:1fr}}
+label.f{display:grid;gap:5px;font-size:14px;font-weight:600;color:var(--muted)}
+label.f input,label.f select{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:11px 12px;width:100%}
+label.f input[readonly]{background:var(--bg);color:var(--muted)}
+.ship-opt{display:grid;gap:8px}
+.radio{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:13px 14px;background:var(--surface);cursor:pointer}
+.radio:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.radio span{display:flex;gap:10px;align-items:center}
+.radio small{display:block;color:var(--muted)}
+.express{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.express button{border:0;border-radius:4px;padding:13px;font-weight:700;background:var(--ink);color:var(--bg)}
+.or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:14px;margin-bottom:20px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.card-box{border:1px solid var(--line);border-radius:6px;background:var(--surface);overflow:hidden}
+.card-box .top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--bg);flex-wrap:wrap}
+.brands{display:flex;gap:6px;flex-wrap:wrap}
+.brands span{font-size:10px;font-weight:700;letter-spacing:.04em;border:1px solid var(--line);border-radius:3px;padding:2px 6px;background:var(--surface)}
+.card-box .inner{padding:14px}
+.test-note{background:var(--demo);color:var(--demo-ink);border-radius:4px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.lock{font-size:13px;color:var(--muted);margin-top:10px}
+.co-sum{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:20px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px)}
+@media (max-width:860px){.co-sum{position:static}}
+.co-sum h2{font-size:26px;margin-bottom:4px}
+.co-sum .line{grid-template-columns:56px 1fr auto}
+.co-sum .lines{padding:0;overflow:visible}
+.co-sum .rows{display:grid;gap:8px;margin-top:14px}
+.pay{width:100%;margin-top:8px;padding:16px;font-size:17px}
+.legal{font-size:13px;color:var(--muted);margin-top:10px}
+
+/* Confirmation */
+.done{padding-block:56px 72px}
+.done .box{max-width:640px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:32px}
+.check{width:56px;height:56px;border-radius:50%;background:var(--ok);color:#fff;display:grid;place-items:center;font-size:28px;margin-bottom:16px}
+.done h1{font-size:38px}
+.done ol{padding-left:20px;color:var(--muted)}
+.done ol li{margin-bottom:6px}
+.done ol b{color:var(--ink)}
+
+footer.site{background:var(--night);color:color-mix(in srgb,var(--night-ink) 70%,transparent);font-size:14px}
+footer.site .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;padding-block:36px}
+footer.site .flogo{width:70px;height:90px;background:var(--night-ink);-webkit-mask:url(img/logo_black.png) center/contain no-repeat;mask:url(img/logo_black.png) center/contain no-repeat;margin-bottom:10px}
+footer.site h4{color:var(--night-ink);margin:0 0 8px;font-size:14px}
+footer.site ul{list-style:none;padding:0;margin:0;display:grid;gap:5px}
+footer.site .rebel{color:var(--gold);font-size:17px}
+@media (max-width:640px){footer.site .wrap{grid-template-columns:1fr 1fr}footer.site .wrap>div:first-child{grid-column:1/-1}}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:4px;font-weight:700;z-index:30;font-size:14px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="demo-bar"><div class="wrap"><span>BOUTIQUE DE DÉMONSTRATION</span><span>Aucun paiement réel, aucune donnée enregistrée</span></div></div>
+
+<header class="site"><div class="wrap">
+  <a class="logo" href="#accueil" aria-label="dmwmb, accueil"><span class="palm"></span><b>dmwmb</b></a>
+  <nav class="main" aria-label="Navigation principale">
+    <a href="#tshirts">T-shirts</a><a href="#polos">Polos</a><a href="#apropos">L'esprit dmwmb</a>
+  </nav>
+  <button class="cart-btn" id="openCart" aria-label="Ouvrir le panier">Panier <b id="cartCount">0</b></button>
+</div></header>
+
+<main id="view"></main>
+
+<footer class="site"><div class="wrap">
+  <div><div class="flogo" aria-hidden="true"></div><div class="rebel">Mind your own business.</div><p style="max-width:40ch;margin-top:8px">T-shirts et polos en coton, imprimés en France à la commande.</p></div>
+  <div><h4>Aide</h4><ul><li>Livraison et retours</li><li>Guide des tailles</li><li>Contact</li></ul></div>
+  <div><h4>Informations</h4><ul><li>Mentions légales</li><li>CGV</li><li>Confidentialité</li></ul></div>
+</div></footer>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Panier">
+  <header><h2>Votre panier</h2><button class="x" id="closeCart" aria-label="Fermer">×</button></header>
+  <div class="lines" id="drawerLines"></div>
+  <footer id="drawerFoot"></footer>
+</aside>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const COLORS = {
+  noir:{n:"Noir",c:"#1C1A18"}, rouge:{n:"Rouge",c:"#B8382A"}, jaune:{n:"Jaune soleil",c:"#E0A92E"}, blanc:{n:"Blanc",c:"#F5F3EF"}
+};
+const PRODUCTS = [
+  {id:"tronc", kind:"T-shirt", name:"Gros Tronc", price:39, colors:["blanc"], img:{blanc:"img/tronc_blanc.jpg"}, tag:"Pièce signature", tagRed:true, cat:"tshirts",
+   desc:"Le grand palmier dmwmb aux racines puissantes, imprimé en grand sur le devant. « Don't mess with my business », « Mind your own business » : le t-shirt qui dit tout sans un mot."},
+  {id:"tee", kind:"T-shirt", name:"Palmier", price:35, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/tee_noir.jpg",rouge:"img/tee_rouge.jpg",jaune:"img/tee_jaune.jpg",blanc:"img/tee_blanc.jpg"}, cat:"tshirts",
+   desc:"Le palmier et la lune dmwmb imprimés côté cœur. Un classique sobre, à porter partout, de la plage à la ville."},
+  {id:"polo", kind:"Polo", name:"Palmier", price:49, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/polo_noir.jpg",rouge:"img/polo_rouge.jpg",jaune:"img/polo_jaune.jpg",blanc:"img/polo_blanc.jpg"}, tag:"Nouveau", cat:"polos",
+   desc:"Polo en maille piquée, col et patte à trois boutons, logo dmwmb côté cœur. Le chic tropical, version rebelle."}
+];
+const SIZES = ["S","M","L","XL","XXL"];
+const SHIP_FREE = 80;
+const fmt = n => n.toFixed(2).replace(".",",")+" €";
+const P = id => PRODUCTS.find(p=>p.id===id);
+const title = p => `${p.kind} ${p.name}`;
+
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem("dmwmb-cart")||"[]").filter(l=>P(l.id)); } catch(e){ cart = []; }
+function save(){ try{ localStorage.setItem("dmwmb-cart", JSON.stringify(cart)); }catch(e){} }
+let filter = "tout";
+let sel = {};
+const $ = s => document.querySelector(s);
+const view = $("#view");
+
+function subtotal(){ return cart.reduce((s,l)=>s+l.qty*P(l.id).price,0); }
+function count(){ return cart.reduce((s,l)=>s+l.qty,0); }
+function shipping(method){ if(method==="express") return 9.90; return subtotal()>=SHIP_FREE?0:4.90; }
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.hidden=false; clearTimeout(toast._t); toast._t=setTimeout(()=>t.hidden=true,2200); }
+
+function home(){
+  const cards = [];
+  PRODUCTS.forEach(p=>p.colors.forEach((c,i)=>{ if(filter==="tout"||p.cat===filter) cards.push({p,c,first:i===0}); }));
+  view.innerHTML = `
+  <section class="hero"><div class="wrap">
+    <div>
+      <span class="eyebrow">Don't mess with my business</span>
+      <h1>Chic sous les palmiers, <em>rebelle</em> dans l'âme.</h1>
+      <p>dmwmb, ce sont des t-shirts et des polos aux couleurs chaudes, marqués du palmier et de la lune. Imprimés en France, à la commande.</p>
+      <div class="cta-row"><a class="btn" href="#collection">Découvrir la collection</a><a class="btn ghost" href="#produit-tronc">Le Gros Tronc</a></div>
+      <div class="perks"><span>Livraison offerte dès ${SHIP_FREE} €</span><span>Retours sous 14 jours</span><span>Paiement sécurisé</span></div>
+    </div>
+    <div class="hero-pic"><img src="img/tronc_blanc.jpg" alt="T-shirt blanc Gros Tronc dmwmb porté" width="720" height="894"><span class="stamp">Pièce signature</span></div>
+  </div></section>
+  <section class="cat" id="collection-s"><div class="wrap">
+    <div class="cat-head"><div><h2>La collection</h2><p>${PRODUCTS.length} modèles · ${cards.length} coloris affichés</p></div>
+      <div class="filters" role="group" aria-label="Filtrer">
+        ${[["tout","Tout"],["tshirts","T-shirts"],["polos","Polos"]].map(([k,l])=>`<button class="chip" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join("")}
+      </div></div>
+    <div class="grid">${cards.map(({p,c,first})=>`
+      <button class="card" data-p="${p.id}" data-c="${c}" aria-label="Voir ${title(p)} ${COLORS[c].n}">
+        <div class="pic">${p.tag&&first?`<span class="tag ${p.tagRed?'red':''}">${p.tag}</span>`:""}<img src="${p.img[c]}" alt="${title(p)} ${COLORS[c].n}" loading="lazy" width="720" height="894"></div>
+        <div class="meta"><h3>${title(p)}</h3><span class="price">${fmt(p.price)}</span></div>
+        <div class="meta"><span class="sub">${COLORS[c].n}</span><span class="swatches">${p.colors.map(x=>`<span class="${x===c?'on':''}" style="background:${COLORS[x].c}"></span>`).join("")}</span></div>
+      </button>`).join("")}</div>
+  </div></section>
+  <section class="manifesto"><div class="wrap">
+    <div class="mark" aria-hidden="true"></div>
+    <div><h2>Tropic chic rebel</h2><p>Des coupes classiques, des tons chauds et un palmier qui ne demande la permission à personne. dmwmb s'habille pour soi, pas pour plaire.</p></div>
+  </div></section>`;
+  view.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{filter=b.dataset.f; home(); document.getElementById("collection-s").scrollIntoView({block:"start"});});
+  view.querySelectorAll(".card").forEach(b=>b.onclick=()=>{ sel={pid:b.dataset.p,color:b.dataset.c,size:null,qty:1}; location.hash="produit-"+b.dataset.p;});
+}
+
+function product(id){
+  const p = P(id); if(!p){ home(); return; }
+  if(sel.pid!==id) sel = {pid:id,size:null,color:p.colors[0],qty:1};
+  view.innerHTML = `
+  <section class="product"><div class="wrap">
+    <button class="back" id="back">← Retour à la collection</button>
+    <div class="p-grid">
+      <div>
+        <div class="p-pic"><img id="pimg" src="${p.img[sel.color]}" alt="${title(p)} ${COLORS[sel.color].n}" width="720" height="894"></div>
+        ${p.colors.length>1?`<div class="thumbs">${p.colors.map(c=>`<button data-t="${c}" aria-pressed="${sel.color===c}" aria-label="Voir en ${COLORS[c].n}"><img src="${p.img[c]}" alt=""></button>`).join("")}</div>`:""}
+      </div>
+      <div class="p-info">
+        <div class="kind">${p.kind}${p.tag?` · ${p.tag}`:""}</div>
+        <h1>${p.name}</h1>
+        <div class="price">${fmt(p.price)} <small class="muted" style="font-size:14px;font-weight:400">TTC</small></div>
+        <p class="desc">${p.desc}</p>
+        <div class="opt"><div class="opt-label"><span>Coloris : <span class="val" id="cname">${COLORS[sel.color].n}</span></span></div>
+          <div class="colors">${p.colors.map(c=>`<button class="color" data-c="${c}" aria-pressed="${sel.color===c}" aria-label="${COLORS[c].n}" style="background:${COLORS[c].c}"></button>`).join("")}</div></div>
+        <div class="opt"><div class="opt-label"><span>Taille</span><a href="#" id="sizeGuide">Guide des tailles</a></div>
+          <div class="sizes">${SIZES.map(s=>`<button class="size" data-s="${s}" aria-pressed="${sel.size===s}">${s}</button>`).join("")}</div>
+          <div class="error" id="err"></div></div>
+        <div class="opt"><div class="opt-label"><span>Quantité</span></div>
+          <div class="qty"><button id="qm" aria-label="Moins">−</button><span id="qv">${sel.qty}</span><button id="qp" aria-label="Plus">+</button></div></div>
+        <div class="buy-row"><button class="btn" id="add">Ajouter au panier</button><button class="btn ghost" id="buyNow">Acheter maintenant</button></div>
+        <div class="facts">
+          <details id="sg"><summary>Guide des tailles</summary>
+            <div class="tscroll"><table class="sizes-t"><tr><th>Taille</th>${SIZES.map(s=>`<th>${s}</th>`).join("")}</tr>
+            <tr><td>Largeur (cm)</td><td>49</td><td>52</td><td>55</td><td>58</td><td>61</td></tr>
+            <tr><td>Longueur (cm)</td><td>69</td><td>72</td><td>74</td><td>76</td><td>78</td></tr></table></div></details>
+          <details><summary>Matière et entretien</summary><p>${p.kind==="Polo"?"Maille piquée 100 % coton, 210 g/m².":"Jersey 100 % coton biologique, 180 g/m²."} Lavage à 30 °C sur l'envers, pas de sèche-linge.</p></details>
+          <details><summary>Livraison et retours</summary><p>Imprimé à la commande en France puis expédié sous 3 à 5 jours ouvrés. Livraison offerte dès ${SHIP_FREE} €. Retours acceptés sous 14 jours.</p></details>
+        </div>
+      </div>
+    </div>
+  </div></section>`;
+  const setColor=c=>{ sel.color=c; $("#pimg").src=p.img[c]; $("#pimg").alt=`${title(p)} ${COLORS[c].n}`; $("#cname").textContent=COLORS[c].n;
+    view.querySelectorAll("[data-c]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.c===c)); view.querySelectorAll("[data-t]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t===c)); };
+  $("#back").onclick=()=>{location.hash="collection";};
+  view.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>setColor(b.dataset.c));
+  view.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>setColor(b.dataset.t));
+  view.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{sel.size=b.dataset.s; $("#err").textContent=""; view.querySelectorAll("[data-s]").forEach(x=>x.setAttribute("aria-pressed",x===b));});
+  $("#qm").onclick=()=>{sel.qty=Math.max(1,sel.qty-1); $("#qv").textContent=sel.qty;};
+  $("#qp").onclick=()=>{sel.qty=Math.min(10,sel.qty+1); $("#qv").textContent=sel.qty;};
+  $("#sizeGuide").onclick=e=>{e.preventDefault(); const d=$("#sg"); d.open=true; d.scrollIntoView({block:"center"});};
+  const add=()=>{ if(!sel.size){ $("#err").textContent="Choisissez une taille pour continuer."; return false; }
+    const ex=cart.find(l=>l.id===p.id&&l.size===sel.size&&l.color===sel.color);
+    if(ex) ex.qty+=sel.qty; else cart.push({id:p.id,size:sel.size,color:sel.color,qty:sel.qty});
+    save(); updateCount(); return true; };
+  $("#add").onclick=()=>{ if(add()){ toast("Ajouté au panier"); openCart(); } };
+  $("#buyNow").onclick=()=>{ if(add()) location.hash="paiement"; };
+}
+
+function lineHTML(l,i,editable){
+  const p=P(l.id);
+  return `<div class="line"><div class="thumb"><img src="${p.img[l.color]}" alt=""></div>
+    <div><h4>${title(p)}</h4><small>${COLORS[l.color].n} · ${l.size} · Qté ${l.qty}</small>${editable?`<button class="rm" data-rm="${i}">Retirer</button>`:""}</div>
+    <div class="lp">${fmt(p.price*l.qty)}</div></div>`;
+}
+function renderDrawer(){
+  const L=$("#drawerLines"), F=$("#drawerFoot");
+  if(!cart.length){ L.innerHTML=`<div class="empty">Votre panier est vide.<br><br><button class="btn ghost" id="shop">Voir la collection</button></div>`; F.innerHTML=""; $("#shop").onclick=()=>{closeCart(); location.hash="collection";}; return; }
+  L.innerHTML=cart.map((l,i)=>lineHTML(l,i,true)).join("");
+  L.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.rm,1); save(); updateCount(); renderDrawer();});
+  const st=subtotal(), left=Math.max(0,SHIP_FREE-st);
+  F.innerHTML=`<div class="ship-meter">${left>0?`Plus que <b>${fmt(left)}</b> pour la livraison offerte`:`<b>Livraison offerte</b> sur cette commande`}<div class="bar"><i style="width:${Math.min(100,st/SHIP_FREE*100)}%"></i></div></div>
+    <div class="row total"><span>Sous-total</span><span>${fmt(st)}</span></div>
+    <div class="muted" style="font-size:13px">Livraison calculée à l'étape suivante.</div>
+    <button class="btn" id="goPay">Passer commande</button>`;
+  $("#goPay").onclick=()=>{closeCart(); location.hash="paiement";};
+}
+function openCart(){ renderDrawer(); $("#drawer").hidden=false; $("#scrim").hidden=false; $("#closeCart").focus(); }
+function closeCart(){ $("#drawer").hidden=true; $("#scrim").hidden=true; }
+function updateCount(){ $("#cartCount").textContent=count(); }
+
+function checkout(){
+  if(!cart.length){ location.hash="collection"; return; }
+  view.innerHTML=`
+  <section class="checkout"><div class="wrap">
+    <div class="steps"><span>Panier</span>›<b>Informations et paiement</b>›<span>Confirmation</span></div>
+    <div class="co-grid">
+      <form id="coForm" novalidate>
+        <div class="express"><button type="button" class="xp">Apple Pay</button><button type="button" class="xp">Google Pay</button></div>
+        <div class="or">ou payer par carte</div>
+        <fieldset><legend>Contact</legend>
+          <div class="f-grid"><label class="f full">E-mail<input id="email" type="email" value="client.demo@exemple.fr" autocomplete="off"></label></div></fieldset>
+        <fieldset><legend>Adresse de livraison</legend>
+          <div class="f-grid">
+            <label class="f">Prénom<input id="fn" value="Camille" autocomplete="off"></label>
+            <label class="f">Nom<input id="ln" value="Martin" autocomplete="off"></label>
+            <label class="f full">Adresse<input id="ad" value="12 rue des Lilas" autocomplete="off"></label>
+            <label class="f">Code postal<input id="zip" value="75011" autocomplete="off"></label>
+            <label class="f">Ville<input id="city" value="Paris" autocomplete="off"></label>
+            <label class="f full">Pays<select id="country"><option>France</option><option>Belgique</option><option>Suisse</option><option>Luxembourg</option></select></label>
+          </div></fieldset>
+        <fieldset><legend>Mode de livraison</legend>
+          <div class="ship-opt">
+            <label class="radio"><span><input type="radio" name="ship" value="std" id="shipStd" checked><span><b>Colissimo</b><small>3 à 5 jours ouvrés</small></span></span><b id="stdPrice"></b></label>
+            <label class="radio"><span><input type="radio" name="ship" value="express" id="shipExp"><span><b>Express</b><small>1 à 2 jours ouvrés</small></span></span><b>${fmt(9.90)}</b></label>
+          </div></fieldset>
+        <fieldset><legend>Paiement</legend>
+          <div class="card-box"><div class="top"><b>Carte bancaire</b><span class="brands"><span>CB</span><span>VISA</span><span>MASTERCARD</span><span>AMEX</span></span></div>
+            <div class="inner">
+              <div class="test-note"><b>Mode test.</b> La carte ci-dessous est une carte de test préremplie. Rien n'est débité et aucune donnée n'est envoyée.</div>
+              <div class="f-grid">
+                <label class="f full">Numéro de carte<input id="cc" value="4242 4242 4242 4242" readonly></label>
+                <label class="f">Date d'expiration<input id="exp" value="12 / 30" readonly></label>
+                <label class="f">Cryptogramme<input id="cvc" value="123" readonly></label>
+                <label class="f full">Titulaire de la carte<input id="holder" value="CAMILLE MARTIN" readonly></label>
+              </div>
+              <div class="lock">Dans la vraie boutique : paiement chiffré, avec validation 3-D Secure par la banque.</div>
+            </div></div></fieldset>
+        <div class="error" id="coErr"></div>
+      </form>
+      <aside class="co-sum">
+        <h2>Récapitulatif</h2>
+        <div class="lines">${cart.map((l,i)=>lineHTML(l,i,false)).join("")}</div>
+        <div class="rows">
+          <div class="row"><span class="muted">Sous-total</span><span>${fmt(subtotal())}</span></div>
+          <div class="row"><span class="muted">Livraison</span><span id="sumShip"></span></div>
+          <div class="row total"><span>Total TTC</span><span id="sumTot"></span></div>
+        </div>
+        <button class="btn pay" id="payBtn" type="submit" form="coForm">Payer</button>
+        <p class="legal">En validant, vous acceptez les conditions générales de vente. Droit de rétractation de 14 jours.</p>
+      </aside>
+    </div>
+  </div></section>`;
+  const refresh=()=>{ const m=document.querySelector('input[name="ship"]:checked').value; const s=shipping(m);
+    $("#stdPrice").textContent = subtotal()>=SHIP_FREE?"Offerte":fmt(4.90);
+    $("#sumShip").textContent = s===0?"Offerte":fmt(s); $("#sumTot").textContent=fmt(subtotal()+s);
+    $("#payBtn").textContent="Payer "+fmt(subtotal()+s); };
+  view.querySelectorAll('input[name="ship"]').forEach(r=>r.onchange=refresh); refresh();
+  view.querySelectorAll(".xp").forEach(b=>b.onclick=()=>toast("En démo, utilisez la carte de test ci-dessous"));
+  $("#coForm").onsubmit=e=>{ e.preventDefault();
+    const miss=["email","fn","ln","ad","zip","city"].filter(id=>!$("#"+id).value.trim());
+    if(miss.length){ $("#coErr").textContent="Complétez les champs vides avant de payer."; $("#"+miss[0]).focus(); return; }
+    const btn=$("#payBtn"); btn.disabled=true; btn.textContent="Paiement en cours…";
+    const m=document.querySelector('input[name="ship"]:checked').value;
+    setTimeout(()=>{ const order={n:"DM-"+(1000+Math.floor(Math.random()*9000)), total:subtotal()+shipping(m), email:$("#email").value, name:$("#fn").value, items:count()};
+      cart=[]; save(); updateCount(); lastOrder=order; location.hash="confirmation"; },1400);
+  };
+}
+
+let lastOrder=null;
+function done(){
+  if(!lastOrder){ home(); return; }
+  const o=lastOrder;
+  view.innerHTML=`<section class="done"><div class="wrap"><div class="box">
+    <div class="check">✓</div>
+    <h1>Merci ${o.name}, commande confirmée</h1>
+    <p class="muted">Commande <b style="color:var(--ink)">${o.n}</b> · ${o.items} article${o.items>1?"s":""} · ${fmt(o.total)} payés (simulation).</p>
+    <p>Un e-mail de confirmation serait envoyé à <b>${o.email}</b>. Voici ce qui se passe ensuite dans la vraie boutique :</p>
+    <ol>
+      <li><b>Le commerçant reçoit une notification</b> de vente sur son téléphone.</li>
+      <li><b>L'imprimeur reçoit la commande automatiquement</b>, imprime le vêtement en France et l'expédie.</li>
+      <li><b>Le client reçoit son numéro de suivi</b> par e-mail.</li>
+      <li><b>L'argent arrive sur le compte bancaire</b> du commerçant quelques jours plus tard.</li>
+    </ol>
+    <div style="margin-top:18px"><a class="btn" href="#collection">Continuer les achats</a></div>
+  </div></div></section>`;
+}
+function about(){
+  view.innerHTML=`<section class="product"><div class="wrap" style="max-width:720px">
+    <span class="rebel" style="color:var(--gold);font-size:22px">Mind your own business</span>
+    <h1 style="font-size:48px;margin-top:8px">L'esprit dmwmb</h1>
+    <p class="muted" style="font-size:18px;margin-top:14px">Cette page présente l'histoire de la marque, ses valeurs et sa façon de travailler. Le texte sera remplacé par celui de la marque.</p>
+    <p>Un palmier, une lune et des racines solides : dmwmb mêle l'élégance des tons chauds et classiques à une attitude libre. Chaque pièce est imprimée à l'unité, au moment de la commande, chez un partenaire en France. Pas de stock, pas d'invendus.</p>
+    <a class="btn" href="#collection" style="margin-top:10px">Voir la collection</a>
+  </div></section>`;
+}
+function route(){
+  const h=location.hash.slice(1);
+  closeCart();
+  if(h.startsWith("produit-")) product(h.slice(8));
+  else if(h==="paiement") checkout();
+  else if(h==="confirmation") done();
+  else if(h==="apropos") about();
+  else {
+    if(h==="tshirts") filter="tshirts"; else if(h==="polos") filter="polos"; else if(h==="accueil") filter="tout";
+    home();
+    if(["collection","tshirts","polos"].includes(h)){ const s=document.getElementById("collection-s"); s&&s.scrollIntoView({block:"start"}); return; }
+  }
+  window.scrollTo(0,0);
+}
+$("#openCart").onclick=openCart; $("#closeCart").onclick=closeCart; $("#scrim").onclick=closeCart;
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeCart(); });
+window.addEventListener("hashchange",route);
+updateCount(); route();
+</script>
+
+</body>
+</html>
