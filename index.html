@@ -254,8 +254,7 @@ mark.todo{background:color-mix(in srgb,var(--demo) 55%,transparent);color:var(--
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
-</head>
-<body>
+</head><body>
 <div class="demo-bar"><div class="wrap"><span>BOUTIQUE DE DÉMONSTRATION</span><span>Aucun paiement réel, aucune commande expédiée</span></div></div>
 
 <header class="site"><div class="wrap">
@@ -284,29 +283,29 @@ mark.todo{background:color-mix(in srgb,var(--demo) 55%,transparent);color:var(--
 
 <script>
 const COLORS = {
-  noir:{n:"Noir",c:"#1C1A18"}, rouge:{n:"Rouge",c:"#B8382A"}, jaune:{n:"Jaune soleil",c:"#E0A92E"}, blanc:{n:"Blanc",c:"#F5F3EF"}
+  noir:{n:"Noir",c:"#1C1A18"}, rouge:{n:"Rouge",c:"#B8382A"}, jaune:{n:"Jaune soleil",c:"#E0A92E"}, blanc:{n:"Blanc",c:"#F5F3EF"}, bleu:{n:"Bleu roi",c:"#1F4FBF"}
 };
 const PRODUCTS = [
-  {id:"roots", kind:"T-shirt", name:"Roots", price:30, was:35, colors:["blanc"], img:{blanc:"img/roots_blanc.jpg"}, tag:"Promo signature", tagRed:true, cat:"tshirts",
+  {id:"roots", kind:"T-shirt", name:"Roots", price:30, was:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/roots_noir.jpg",blanc:"img/roots_blanc.jpg",rouge:"img/roots_rouge.jpg",jaune:"img/roots_jaune.jpg",bleu:"img/roots_bleu.jpg"}, tag:"Promo signature", tagRed:true, cat:"tshirts",
    desc:"Le grand palmier dmwmb aux racines puissantes, imprimé en grand sur le devant. « Don't mess with my business », « Mind your own business » : le t-shirt qui dit tout sans un mot."},
-  {id:"vatos", kind:"T-shirt", name:"Vatos Libres", price:35, colors:["blanc"], img:{blanc:"img/vatos_blanc.jpg"}, tag:"Nouveau", cat:"tshirts",
+  {id:"vatos", kind:"T-shirt", name:"Vatos Libres", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/vatos_noir.jpg",blanc:"img/vatos_blanc.jpg",rouge:"img/vatos_rouge.jpg",jaune:"img/vatos_jaune.jpg",bleu:"img/vatos_bleu.jpg"}, tag:"Nouveau", cat:"tshirts",
    desc:"« Tèt wo, menton an lè » : tête haute, menton levé. Lettrage gothique rouge et noir, signature au pinceau « Véli kon vatos »."},
-  {id:"bandana", kind:"T-shirt", name:"Bandana", price:35, colors:["noir"], img:{noir:"img/bandana_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
-   desc:"Les cinq lettres dmwmb en motif bandana : violet, rouge, noir, vert et bleu. Imprimé en grand sur fond noir."},
-  {id:"bandeau", kind:"T-shirt", name:"Business", price:35, colors:["noir"], img:{noir:"img/bandeau_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
+  {id:"bandana", kind:"T-shirt", name:"Bandana", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/bandana_noir.jpg",blanc:"img/bandana_blanc.jpg",rouge:"img/bandana_rouge.jpg",jaune:"img/bandana_jaune.jpg",bleu:"img/bandana_bleu.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"Les cinq lettres dmwmb en motif bandana : violet, rouge, noir, vert et bleu. Imprimé en grand sur le devant, disponible en cinq coloris."},
+  {id:"bandeau", kind:"T-shirt", name:"Business", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/bandeau_noir.jpg",blanc:"img/bandeau_blanc.jpg",rouge:"img/bandeau_rouge.jpg",jaune:"img/bandeau_jaune.jpg",bleu:"img/bandeau_bleu.jpg"}, tag:"Nouveau", cat:"tshirts",
    desc:"dmwmb en lettres blanches massives, encadré des deux devises en or : « Don't mess with my business », « Mind your own business »."},
-  {id:"onair", kind:"T-shirt", name:"On Air", price:35, colors:["noir"], img:{noir:"img/onair_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
-   desc:"Ambiance studio : micro, lumière tamisée et dmwmb à l'antenne. Visuel imprimé sur fond noir."},
-  {id:"fleur", kind:"T-shirt", name:"Fleur Boug", price:35, colors:["noir"], img:{noir:"img/fleur1_noir.jpg"}, views:[{l:"Recto",src:"img/fleur1_noir.jpg"},{l:"Verso",src:"img/fleur_dos_noir.jpg"}], tag:"Recto verso", cat:"tshirts",
+  {id:"onair", kind:"T-shirt", name:"On Air", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/onair_noir.jpg",blanc:"img/onair_blanc.jpg",rouge:"img/onair_rouge.jpg",jaune:"img/onair_jaune.jpg",bleu:"img/onair_bleu.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"Ambiance studio : micro, lumière tamisée et dmwmb à l'antenne. Visuel imprimé sur le devant, en cinq coloris."},
+  {id:"fleur", kind:"T-shirt", name:"Fleur Boug", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/fleur_noir.jpg",blanc:"img/fleur_blanc.jpg",rouge:"img/fleur_rouge.jpg",jaune:"img/fleur_jaune.jpg",bleu:"img/fleur_bleu.jpg"}, back:{noir:"img/fleurdos_noir.jpg",blanc:"img/fleurdos_blanc.jpg",rouge:"img/fleurdos_rouge.jpg",jaune:"img/fleurdos_jaune.jpg",bleu:"img/fleurdos_bleu.jpg"}, tag:"Recto verso", cat:"tshirts",
    desc:"Imprimé des deux côtés. Devant : un palmier au coucher du soleil sous une arche dorée, entouré de feuillages et d'hibiscus. Au dos : le blason dmwmb doré, « Mind your business »."},
-  {id:"tee", kind:"T-shirt", name:"Palmier", price:35, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/tee_noir.jpg",rouge:"img/tee_rouge.jpg",jaune:"img/tee_jaune.jpg",blanc:"img/tee_blanc.jpg"}, cat:"tshirts",
+  {id:"tee", kind:"T-shirt", name:"Palmier", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/tee_noir.jpg",blanc:"img/tee_blanc.jpg",rouge:"img/tee_rouge.jpg",jaune:"img/tee_jaune.jpg",bleu:"img/tee_bleu.jpg"}, cat:"tshirts",
    desc:"Le palmier et la lune dmwmb imprimés côté cœur. Un classique sobre, à porter partout, de la plage à la ville."},
-  {id:"polo", kind:"Polo", name:"Palmier", price:40, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/polo_noir.jpg",rouge:"img/polo_rouge.jpg",jaune:"img/polo_jaune.jpg",blanc:"img/polo_blanc.jpg"}, cat:"polos",
+  {id:"polo", kind:"Polo", name:"Palmier", price:40, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/polo_noir.jpg",blanc:"img/polo_blanc.jpg",rouge:"img/polo_rouge.jpg",jaune:"img/polo_jaune.jpg",bleu:"img/polo_bleu.jpg"}, cat:"polos",
    desc:"Polo en maille piquée, col et patte à trois boutons, logo dmwmb côté cœur. Le chic tropical, version rebelle."}
 ];
 const SIZES = ["S","M","L","XL","XXL"];
 const SHIP_FREE = 80;
-const CONTACT_EMAIL = "tsubasa.compte@gmail.fr";
+const CONTACT_EMAIL = "jeromegarces@outlook.fr";
 const fmt = n => n.toFixed(2).replace(".",",")+" €";
 const P = id => PRODUCTS.find(p=>p.id===id);
 const title = p => `${p.kind} ${p.name}`;
@@ -510,7 +509,7 @@ function product(id){
     <div class="p-grid">
       <div>
         <div class="p-pic"><img id="pimg" src="${p.img[sel.color]}" alt="${title(p)} ${COLORS[sel.color].n}" width="720" height="894"></div>
-        ${p.views?`<div class="thumbs">${p.views.map((v,k)=>`<button data-v="${v.src}" aria-pressed="${k===0}" aria-label="Voir le ${v.l.toLowerCase()}"><img src="${v.src}" alt=""><span>${v.l}</span></button>`).join("")}</div>`:""}
+        ${p.back?`<div class="thumbs" id="vthumbs"><button data-v="f" aria-pressed="true" aria-label="Voir le recto"><img src="${p.img[sel.color]}" alt=""><span>Recto</span></button><button data-v="b" aria-pressed="false" aria-label="Voir le verso"><img src="${p.back[sel.color]}" alt=""><span>Verso</span></button></div>`:""}
         ${p.colors.length>1?`<div class="thumbs">${p.colors.map(c=>`<button data-t="${c}" aria-pressed="${sel.color===c}" aria-label="Voir en ${COLORS[c].n}"><img src="${p.img[c]}" alt=""></button>`).join("")}</div>`:""}
       </div>
       <div class="p-info">
@@ -535,10 +534,11 @@ function product(id){
       </div>
     </div>
   </div></section>`;
-  const setColor=c=>{ sel.color=c; $("#pimg").src=p.img[c]; $("#pimg").alt=`${title(p)} ${COLORS[c].n}`; $("#cname").textContent=COLORS[c].n;
+  let side="f"; const cur=()=>side==="b"&&p.back?p.back[sel.color]:p.img[sel.color];
+  const setColor=c=>{ sel.color=c; $("#pimg").src=cur(); if(p.back){const t=view.querySelectorAll("[data-v] img"); t[0].src=p.img[c]; t[1].src=p.back[c];} $("#pimg").alt=`${title(p)} ${COLORS[c].n}`; $("#cname").textContent=COLORS[c].n;
     view.querySelectorAll("[data-c]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.c===c)); view.querySelectorAll("[data-t]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t===c)); };
   $("#back").onclick=()=>{location.hash="collection";};
-  view.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{ $("#pimg").src=b.dataset.v; view.querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b)); });
+  view.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{ side=b.dataset.v; $("#pimg").src=cur(); view.querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b)); });
   view.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>setColor(b.dataset.c));
   view.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>setColor(b.dataset.t));
   view.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{sel.size=b.dataset.s; $("#err").textContent=""; view.querySelectorAll("[data-s]").forEach(x=>x.setAttribute("aria-pressed",x===b));});
@@ -691,5 +691,4 @@ window.addEventListener("hashchange",route);
 updateCount(); route();
 </script>
 
-</body>
-</html>
+</body></html>
