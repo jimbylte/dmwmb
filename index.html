@@ -91,6 +91,7 @@ section.cat{padding-block:48px 64px}
 .card .meta{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .card h3{font-size:21px}
 .card .price{font-weight:700;font-variant-numeric:tabular-nums}
+.price s{color:var(--muted);font-weight:400;margin-right:4px}
 .card .sub{color:var(--muted);font-size:14px;margin-top:-4px}
 .swatches{display:flex;gap:5px;flex-shrink:0}
 .swatches span{width:13px;height:13px;border-radius:50%;border:1px solid var(--line)}
@@ -116,6 +117,8 @@ section.cat{padding-block:48px 64px}
 .thumbs button{width:64px;aspect-ratio:4/5;border:1px solid var(--line);padding:0;border-radius:3px;overflow:hidden;background:var(--photo)}
 .thumbs button[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:2px}
 .thumbs img{width:100%;height:100%;object-fit:cover}
+.thumbs button{position:relative}
+.thumbs button span{position:absolute;inset:auto 0 0;background:rgba(20,16,12,.72);color:#F3EADC;font-size:10px;font-weight:700;padding:1px 0;text-align:center}
 .p-info .kind{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
 .p-info h1{font-size:clamp(34px,4.4vw,52px);margin-top:6px}
 .p-info .price{font-size:24px;font-weight:700;margin:10px 0 14px;font-variant-numeric:tabular-nums}
@@ -221,16 +224,39 @@ footer.site .wrap{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;paddin
 footer.site .flogo{width:70px;height:90px;background:var(--night-ink);-webkit-mask:url(img/logo_black.png) center/contain no-repeat;mask:url(img/logo_black.png) center/contain no-repeat;margin-bottom:10px}
 footer.site h4{color:var(--night-ink);margin:0 0 8px;font-size:14px}
 footer.site ul{list-style:none;padding:0;margin:0;display:grid;gap:5px}
+footer.site a{text-decoration:none}
+footer.site a:hover{color:var(--night-ink);text-decoration:underline}
 footer.site .rebel{color:var(--gold);font-size:17px}
 @media (max-width:640px){footer.site .wrap{grid-template-columns:1fr 1fr}footer.site .wrap>div:first-child{grid-column:1/-1}}
 
+/* Pages de texte et contact */
+.page{padding-block:36px 72px}
+.page .wrap{max-width:780px}
+.page h1{font-size:clamp(34px,5vw,50px);margin-bottom:6px}
+.page .lead{color:var(--muted);font-size:18px;margin:0 0 22px}
+.page h2{font-size:25px;margin:30px 0 8px}
+.page p,.page li{max-width:68ch}
+.page ul,.page ol{padding-left:20px}
+.page li{margin-bottom:5px}
+.page a{color:var(--accent)}
+mark.todo{background:color-mix(in srgb,var(--demo) 55%,transparent);color:var(--ink);padding:1px 5px;border-radius:3px;font-weight:600}
+.note{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:14px 16px;margin:18px 0;font-size:15px}
+.kv{display:grid;grid-template-columns:minmax(120px,200px) 1fr;gap:6px 16px;margin:10px 0}
+.kv dt{color:var(--muted);font-weight:600}.kv dd{margin:0;min-width:0}
+@media (max-width:520px){.kv{grid-template-columns:1fr}.kv dd{margin-bottom:8px}}
+.cform{display:grid;gap:14px;margin-top:18px}
+.cform textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:11px 12px;width:100%;min-height:150px;resize:vertical}
+.cform .count{font-size:13px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.cform .consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.cform .consent input{margin-top:4px}
+.cform .hp{position:absolute;left:-9999px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:4px;font-weight:700;z-index:30;font-size:14px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 
 </head>
 <body>
-<div class="demo-bar"><div class="wrap"><span>BOUTIQUE DE DÉMONSTRATION</span><span>Aucun paiement réel, aucune donnée enregistrée</span></div></div>
+<div class="demo-bar"><div class="wrap"><span>BOUTIQUE DE DÉMONSTRATION</span><span>Aucun paiement réel, aucune commande expédiée</span></div></div>
 
 <header class="site"><div class="wrap">
   <a class="logo" href="#accueil" aria-label="dmwmb, accueil"><span class="palm"></span><b>dmwmb</b></a>
@@ -244,8 +270,8 @@ footer.site .rebel{color:var(--gold);font-size:17px}
 
 <footer class="site"><div class="wrap">
   <div><div class="flogo" aria-hidden="true"></div><div class="rebel">Mind your own business.</div><p style="max-width:40ch;margin-top:8px">T-shirts et polos en coton, imprimés en France à la commande.</p></div>
-  <div><h4>Aide</h4><ul><li>Livraison et retours</li><li>Guide des tailles</li><li>Contact</li></ul></div>
-  <div><h4>Informations</h4><ul><li>Mentions légales</li><li>CGV</li><li>Confidentialité</li></ul></div>
+  <div><h4>Aide</h4><ul><li><a href="#livraison">Livraison et retours</a></li><li><a href="#tailles">Guide des tailles</a></li><li><a href="#contact">Contact</a></li></ul></div>
+  <div><h4>Informations</h4><ul><li><a href="#mentions">Mentions légales</a></li><li><a href="#cgv">CGV</a></li><li><a href="#confidentialite">Confidentialité</a></li></ul></div>
 </div></footer>
 
 <div class="scrim" id="scrim" hidden></div>
@@ -261,18 +287,172 @@ const COLORS = {
   noir:{n:"Noir",c:"#1C1A18"}, rouge:{n:"Rouge",c:"#B8382A"}, jaune:{n:"Jaune soleil",c:"#E0A92E"}, blanc:{n:"Blanc",c:"#F5F3EF"}
 };
 const PRODUCTS = [
-  {id:"tronc", kind:"T-shirt", name:"Gros Tronc", price:39, colors:["blanc"], img:{blanc:"img/tronc_blanc.jpg"}, tag:"Pièce signature", tagRed:true, cat:"tshirts",
+  {id:"roots", kind:"T-shirt", name:"Roots", price:30, was:35, colors:["blanc"], img:{blanc:"img/roots_blanc.jpg"}, tag:"Promo signature", tagRed:true, cat:"tshirts",
    desc:"Le grand palmier dmwmb aux racines puissantes, imprimé en grand sur le devant. « Don't mess with my business », « Mind your own business » : le t-shirt qui dit tout sans un mot."},
+  {id:"vatos", kind:"T-shirt", name:"Vatos Libres", price:35, colors:["blanc"], img:{blanc:"img/vatos_blanc.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"« Tèt wo, menton an lè » : tête haute, menton levé. Lettrage gothique rouge et noir, signature au pinceau « Véli kon vatos »."},
+  {id:"bandana", kind:"T-shirt", name:"Bandana", price:35, colors:["noir"], img:{noir:"img/bandana_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"Les cinq lettres dmwmb en motif bandana : violet, rouge, noir, vert et bleu. Imprimé en grand sur fond noir."},
+  {id:"bandeau", kind:"T-shirt", name:"Business", price:35, colors:["noir"], img:{noir:"img/bandeau_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"dmwmb en lettres blanches massives, encadré des deux devises en or : « Don't mess with my business », « Mind your own business »."},
+  {id:"onair", kind:"T-shirt", name:"On Air", price:35, colors:["noir"], img:{noir:"img/onair_noir.jpg"}, tag:"Nouveau", cat:"tshirts",
+   desc:"Ambiance studio : micro, lumière tamisée et dmwmb à l'antenne. Visuel imprimé sur fond noir."},
+  {id:"fleur", kind:"T-shirt", name:"Fleur Boug", price:35, colors:["noir"], img:{noir:"img/fleur1_noir.jpg"}, views:[{l:"Recto",src:"img/fleur1_noir.jpg"},{l:"Verso",src:"img/fleur_dos_noir.jpg"}], tag:"Recto verso", cat:"tshirts",
+   desc:"Imprimé des deux côtés. Devant : un palmier au coucher du soleil sous une arche dorée, entouré de feuillages et d'hibiscus. Au dos : le blason dmwmb doré, « Mind your business »."},
   {id:"tee", kind:"T-shirt", name:"Palmier", price:35, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/tee_noir.jpg",rouge:"img/tee_rouge.jpg",jaune:"img/tee_jaune.jpg",blanc:"img/tee_blanc.jpg"}, cat:"tshirts",
    desc:"Le palmier et la lune dmwmb imprimés côté cœur. Un classique sobre, à porter partout, de la plage à la ville."},
-  {id:"polo", kind:"Polo", name:"Palmier", price:49, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/polo_noir.jpg",rouge:"img/polo_rouge.jpg",jaune:"img/polo_jaune.jpg",blanc:"img/polo_blanc.jpg"}, tag:"Nouveau", cat:"polos",
+  {id:"polo", kind:"Polo", name:"Palmier", price:40, colors:["noir","rouge","jaune","blanc"], img:{noir:"img/polo_noir.jpg",rouge:"img/polo_rouge.jpg",jaune:"img/polo_jaune.jpg",blanc:"img/polo_blanc.jpg"}, cat:"polos",
    desc:"Polo en maille piquée, col et patte à trois boutons, logo dmwmb côté cœur. Le chic tropical, version rebelle."}
 ];
 const SIZES = ["S","M","L","XL","XXL"];
 const SHIP_FREE = 80;
+const CONTACT_EMAIL = "tsubasa.compte@gmail.fr";
 const fmt = n => n.toFixed(2).replace(".",",")+" €";
 const P = id => PRODUCTS.find(p=>p.id===id);
 const title = p => `${p.kind} ${p.name}`;
+
+
+const TODO = t => `<mark class="todo">[à compléter : ${t}]</mark>`;
+const SIZE_TABLE = `<div class="tscroll"><table class="sizes-t"><tr><th>Taille</th>${SIZES.map(s=>`<th>${s}</th>`).join("")}</tr>
+  <tr><td>Largeur (cm)</td><td>49</td><td>52</td><td>55</td><td>58</td><td>61</td></tr>
+  <tr><td>Longueur (cm)</td><td>69</td><td>72</td><td>74</td><td>76</td><td>78</td></tr></table></div>`;
+const PAGES = {
+mentions: () => `<h1>Mentions légales</h1>
+  <p class="lead">Informations légales du site dmwmb, conformément à l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique.</p>
+  <h2>Éditeur du site</h2>
+  <dl class="kv">
+    <dt>Marque</dt><dd>dmwmb</dd>
+    <dt>Exploitant</dt><dd>${TODO("nom et prénom, ou dénomination de l'entreprise")}</dd>
+    <dt>Statut</dt><dd>${TODO("forme juridique, par exemple entrepreneur individuel")}</dd>
+    <dt>Adresse</dt><dd>${TODO("adresse postale")}</dd>
+    <dt>SIRET</dt><dd>${TODO("numéro SIRET")}</dd>
+    <dt>TVA</dt><dd>${TODO("numéro de TVA, ou « TVA non applicable, art. 293 B du CGI »")}</dd>
+    <dt>Contact</dt><dd><a href="#contact">Formulaire de contact</a></dd>
+    <dt>Directeur de la publication</dt><dd>${TODO("nom et prénom")}</dd>
+  </dl>
+  <h2>Hébergement</h2>
+  <p>Le site est hébergé par GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis, <span>github.com</span>.</p>
+  <h2>Propriété intellectuelle</h2>
+  <p>Le nom dmwmb, le logo au palmier et à la lune, ainsi que l'ensemble des visuels imprimés sur les vêtements sont des créations originales de <b>webgraphist</b>, protégées par le droit d'auteur (articles L111-1 et suivants du Code de la propriété intellectuelle).</p>
+  <p>© ${new Date().getFullYear()} webgraphist pour dmwmb. Tous droits réservés. Toute reproduction, représentation, adaptation ou exploitation, totale ou partielle, des logos, visuels, textes et photographies de ce site est interdite sans autorisation écrite préalable. Toute utilisation non autorisée constitue une contrefaçon, sanctionnée par les articles L335-2 et suivants du même code.</p>
+  <h2>Conception du site</h2>
+  <p>Conception graphique et réalisation : webgraphist.</p>
+  <h2>Données personnelles et cookies</h2>
+  <p>Le traitement de vos données est décrit dans la page <a href="#confidentialite">Confidentialité</a>.</p>
+  <h2>Litiges</h2>
+  <p>Le présent site est soumis au droit français. Les conditions de vente sont détaillées dans les <a href="#cgv">CGV</a>.</p>`,
+
+cgv: () => `<h1>Conditions générales de vente</h1>
+  <p class="lead">En vigueur au ${TODO("date de mise en ligne")}. Elles s'appliquent à toute commande passée sur le site dmwmb par un consommateur.</p>
+  <h2>1. Vendeur</h2>
+  <p>Les produits sont vendus par ${TODO("nom ou dénomination, statut, adresse, SIRET")}, ci-après « dmwmb ». Coordonnées complètes dans les <a href="#mentions">mentions légales</a>.</p>
+  <h2>2. Produits</h2>
+  <p>dmwmb propose des t-shirts et des polos imprimés. Chaque article est fabriqué à la commande. Les photographies sont les plus fidèles possible, mais de légères différences de teinte peuvent exister selon l'écran utilisé. Les tailles sont indiquées dans le <a href="#tailles">guide des tailles</a>.</p>
+  <h2>3. Prix</h2>
+  <p>Les prix sont indiqués en euros, toutes taxes comprises, hors frais de livraison. Les frais de livraison sont affichés avant la validation de la commande. dmwmb peut modifier ses prix à tout moment : le prix appliqué est celui affiché au moment de la commande.</p>
+  <h2>4. Commande</h2>
+  <p>Le client choisit ses articles, vérifie son panier, renseigne ses coordonnées puis valide son paiement. La vente est conclue à la confirmation du paiement. Un e-mail récapitulatif est envoyé au client. dmwmb peut refuser une commande en cas de litige de paiement antérieur ou de demande anormale.</p>
+  <h2>5. Paiement</h2>
+  <p>Le paiement est exigible à la commande. Il s'effectue par carte bancaire (CB, Visa, Mastercard) ou par tout autre moyen proposé lors du paiement, via un prestataire de paiement sécurisé. dmwmb n'a jamais accès aux numéros de carte.</p>
+  <h2>6. Livraison</h2>
+  <p>Les zones desservies, les délais et les tarifs sont détaillés dans la page <a href="#livraison">Livraison et retours</a>. La commande est livrée à l'adresse indiquée par le client. En cas de retard de plus de 7 jours par rapport au délai annoncé, le client peut demander l'annulation de la commande et son remboursement, dans les conditions des articles L216-6 et suivants du Code de la consommation.</p>
+  <p>Le client vérifie l'état du colis à la réception. En cas de colis abîmé ou d'article manquant, il le signale au transporteur et à dmwmb dans les meilleurs délais, photos à l'appui.</p>
+  <h2>7. Droit de rétractation</h2>
+  <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le client dispose de <b>14 jours</b> à compter de la réception pour se rétracter, sans avoir à donner de motif. Il informe dmwmb de sa décision par le <a href="#contact">formulaire de contact</a>, puis renvoie l'article dans les 14 jours suivants.</p>
+  <p>L'article doit être retourné neuf, non porté, non lavé, avec ses étiquettes. Les frais de retour sont à la charge du client. dmwmb rembourse le prix de l'article et les frais de livraison standard initiaux dans les 14 jours suivant la notification, ce remboursement pouvant être différé jusqu'à la réception de l'article ou de la preuve de son expédition.</p>
+  <h2>8. Garanties légales</h2>
+  <p>Tous les produits bénéficient de la garantie légale de conformité (articles L217-3 et suivants du Code de la consommation), pendant deux ans à compter de la livraison, et de la garantie des vices cachés (articles 1641 et suivants du Code civil). En cas de défaut, le client peut demander la réparation ou le remplacement de l'article, ou à défaut une réduction de prix ou le remboursement.</p>
+  <h2>9. Réclamations</h2>
+  <p>Toute réclamation peut être adressée par le <a href="#contact">formulaire de contact</a>, en indiquant le numéro de commande. dmwmb s'engage à répondre sous 5 jours ouvrés.</p>
+  <h2>10. Médiation de la consommation</h2>
+  <p>En cas de litige non résolu après une réclamation écrite, le client peut recourir gratuitement au médiateur de la consommation : ${TODO("nom, adresse et site du médiateur choisi")}.</p>
+  <h2>11. Propriété intellectuelle</h2>
+  <p>Les logos et visuels dmwmb sont des créations de webgraphist. L'achat d'un vêtement n'entraîne aucune cession de droits sur ces créations.</p>
+  <h2>12. Données personnelles</h2>
+  <p>Les données collectées servent au traitement des commandes. Voir la page <a href="#confidentialite">Confidentialité</a>.</p>
+  <h2>13. Droit applicable</h2>
+  <p>Les présentes conditions sont soumises au droit français. À défaut d'accord amiable, les tribunaux compétents sont ceux désignés par les règles de droit commun.</p>`,
+
+livraison: () => `<h1>Livraison et retours</h1>
+  <p class="lead">Chaque article est imprimé à la commande, puis expédié directement chez vous.</p>
+  <h2>Délais</h2>
+  <ul><li><b>Fabrication :</b> 2 à 4 jours ouvrés.</li><li><b>Livraison standard (Colissimo) :</b> 3 à 5 jours ouvrés après expédition.</li><li><b>Livraison express :</b> 1 à 2 jours ouvrés après expédition.</li></ul>
+  <h2>Tarifs</h2>
+  <div class="tscroll"><table class="sizes-t"><tr><th>Mode</th><th>Tarif</th></tr>
+    <tr><td>Standard</td><td>${fmt(4.90)}</td></tr><tr><td>Standard, dès ${SHIP_FREE} € d'achat</td><td>Offerte</td></tr><tr><td>Express</td><td>${fmt(9.90)}</td></tr></table></div>
+  <h2>Zones desservies</h2>
+  <p>France métropolitaine, Belgique, Suisse et Luxembourg. Pour la Suisse, des droits de douane peuvent être demandés à la réception : ils restent à la charge du client. Pour une autre destination, écrivez-nous via le <a href="#contact">formulaire de contact</a>.</p>
+  <h2>Suivi</h2>
+  <p>Un e-mail avec le numéro de suivi vous est envoyé dès l'expédition.</p>
+  <h2>Colis abîmé ou erreur</h2>
+  <p>Article abîmé, défaut d'impression ou mauvaise taille reçue : contactez-nous sous 14 jours avec votre numéro de commande et une photo. Nous renvoyons un article conforme ou nous vous remboursons, sans frais pour vous.</p>
+  <h2>Retours et échanges</h2>
+  <ol><li>Vous avez <b>14 jours</b> après réception pour changer d'avis.</li><li>Prévenez-nous par le <a href="#contact">formulaire de contact</a>, motif « Retour ou échange ».</li><li>Renvoyez l'article neuf, non porté et non lavé, à l'adresse que nous vous indiquerons. Les frais de retour sont à votre charge.</li><li>Le remboursement est effectué sous 14 jours, sur le moyen de paiement utilisé à l'achat.</li></ol>
+  <p>Pour un échange de taille, le plus rapide est de retourner l'article et de passer une nouvelle commande.</p>
+  <p>Le détail de vos droits figure dans les <a href="#cgv">CGV</a>.</p>`,
+
+tailles: () => `<h1>Guide des tailles</h1>
+  <p class="lead">Coupe droite unisexe. Mesures prises à plat, en centimètres.</p>
+  ${SIZE_TABLE}
+  <p style="margin-top:16px"><b>Largeur :</b> d'une aisselle à l'autre. <b>Longueur :</b> du haut de l'épaule au bas du vêtement.</p>
+  <p>Le plus simple : mesurez un t-shirt que vous aimez porter et comparez. Entre deux tailles, prenez la plus grande.</p>`,
+
+confidentialite: () => `<h1>Confidentialité</h1>
+  <p class="lead">Comment dmwmb utilise vos données personnelles, conformément au RGPD et à la loi Informatique et Libertés.</p>
+  <h2>Responsable du traitement</h2>
+  <p>${TODO("nom ou dénomination de l'exploitant")}, joignable par le <a href="#contact">formulaire de contact</a>.</p>
+  <h2>Données collectées</h2>
+  <ul><li><b>Commande :</b> nom, adresse de livraison, e-mail, contenu de la commande. Le paiement est traité par un prestataire sécurisé.</li>
+  <li><b>Contact :</b> nom, e-mail, téléphone et numéro de commande s'ils sont renseignés, et votre message. Le formulaire est transmis par le service FormSubmit jusqu'à la boîte e-mail de dmwmb.</li></ul>
+  <h2>Utilisation</h2>
+  <p>Ces données servent uniquement à traiter vos commandes et à répondre à vos demandes. Elles ne sont ni vendues ni utilisées à des fins publicitaires sans votre accord.</p>
+  <h2>Durée de conservation</h2>
+  <p>Les données de commande sont conservées le temps nécessaire à la relation commerciale, puis archivées pendant la durée légale (10 ans pour les pièces comptables). Les messages de contact sont conservés 3 ans au maximum.</p>
+  <h2>Cookies</h2>
+  <p>Le site n'utilise pas de cookie publicitaire ni de mesure d'audience. Le contenu du panier est gardé dans votre navigateur, sur votre appareil.</p>
+  <h2>Vos droits</h2>
+  <p>Vous pouvez demander l'accès, la rectification ou la suppression de vos données via le <a href="#contact">formulaire de contact</a>. Vous pouvez aussi adresser une réclamation à la CNIL (cnil.fr).</p>`,
+
+contact: () => `<h1>Contact</h1>
+  <p class="lead">Une question, un suivi de commande, un retour ou une réclamation : écrivez-nous. Réponse sous 5 jours ouvrés.</p>
+  <form class="cform" id="contactForm" method="POST" action="https://formsubmit.co/${CONTACT_EMAIL}">
+    <input type="hidden" name="_subject" id="cSubject" value="Message depuis la boutique dmwmb">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_next" id="cNext" value="">
+    <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="f-grid">
+      <label class="f">Prénom et nom *<input id="cName" name="Nom" required autocomplete="name"></label>
+      <label class="f">E-mail *<input id="cEmail" name="email" type="email" required autocomplete="email"></label>
+      <label class="f">Téléphone (facultatif)<input id="cTel" name="Telephone" type="tel" autocomplete="tel"></label>
+      <label class="f">Numéro de commande (si vous en avez un)<input id="cOrder" name="Numero de commande" placeholder="DM-1234"></label>
+      <label class="f full">Votre demande concerne *<select id="cTopic" name="Motif" required>
+        <option value="">Choisir…</option>
+        <option>Question sur un produit ou une taille</option>
+        <option>Suivi de commande ou livraison</option>
+        <option>Retour ou échange</option>
+        <option>Réclamation (article abîmé, erreur, défaut)</option>
+        <option>Paiement ou facture</option>
+        <option>Autre</option></select></label>
+      <label class="f full">Votre message *<textarea id="cMsg" name="Message" required maxlength="1000" placeholder="Décrivez votre demande. Pour une réclamation : l'article concerné, la taille, le problème constaté."></textarea></label>
+    </div>
+    <div class="count"><span id="cCount">0</span> / 1000 caractères</div>
+    <label class="consent"><input type="checkbox" id="cOk" required><span>J'accepte que ces informations soient utilisées pour traiter ma demande. Voir la page <a href="#confidentialite">Confidentialité</a>.</span></label>
+    <div><button class="btn" type="submit">Envoyer le message</button></div>
+    <p class="muted" style="font-size:14px;margin:0">* Champs obligatoires. Après l'envoi, une courte vérification anti-robot peut s'afficher.</p>
+  </form>`,
+
+merci: () => `<h1>Message envoyé</h1>
+  <p class="lead">Merci, votre message est bien parti. Nous vous répondons sous 5 jours ouvrés, à l'adresse e-mail indiquée.</p>
+  <a class="btn" href="#collection">Retour à la collection</a>`
+};
+function page(name){
+  view.innerHTML = `<section class="page"><div class="wrap">${PAGES[name]()}</div></section>`;
+  if(name==="contact"){
+    $("#cNext").value = location.origin + location.pathname + "#merci";
+    const m=$("#cMsg"); m.oninput=()=>{$("#cCount").textContent=m.value.length;};
+    $("#cTopic").onchange=e=>{ $("#cSubject").value = "Boutique dmwmb : " + (e.target.value||"message"); };
+  }
+}
 
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem("dmwmb-cart")||"[]").filter(l=>P(l.id)); } catch(e){ cart = []; }
@@ -289,33 +469,33 @@ function toast(msg){ const t=$("#toast"); t.textContent=msg; t.hidden=false; cle
 
 function home(){
   const cards = [];
-  PRODUCTS.forEach(p=>p.colors.forEach((c,i)=>{ if(filter==="tout"||p.cat===filter) cards.push({p,c,first:i===0}); }));
+  PRODUCTS.forEach(p=>{ if(filter==="tout"||p.cat===filter) cards.push({p,c:p.colors[0],first:true}); });
   view.innerHTML = `
   <section class="hero"><div class="wrap">
     <div>
       <span class="eyebrow">Don't mess with my business</span>
       <h1>Chic sous les palmiers, <em>rebelle</em> dans l'âme.</h1>
       <p>dmwmb, ce sont des t-shirts et des polos aux couleurs chaudes, marqués du palmier et de la lune. Imprimés en France, à la commande.</p>
-      <div class="cta-row"><a class="btn" href="#collection">Découvrir la collection</a><a class="btn ghost" href="#produit-tronc">Le Gros Tronc</a></div>
+      <div class="cta-row"><a class="btn" href="#collection">Découvrir la collection</a><a class="btn ghost" href="#produit-roots">Le t-shirt Roots</a></div>
       <div class="perks"><span>Livraison offerte dès ${SHIP_FREE} €</span><span>Retours sous 14 jours</span><span>Paiement sécurisé</span></div>
     </div>
-    <div class="hero-pic"><img src="img/tronc_blanc.jpg" alt="T-shirt blanc Gros Tronc dmwmb porté" width="720" height="894"><span class="stamp">Pièce signature</span></div>
+    <div class="hero-pic"><img src="img/roots_blanc.jpg" alt="T-shirt blanc Roots dmwmb porté" width="720" height="894"><span class="stamp">Promo signature · 30 €</span></div>
   </div></section>
   <section class="cat" id="collection-s"><div class="wrap">
-    <div class="cat-head"><div><h2>La collection</h2><p>${PRODUCTS.length} modèles · ${cards.length} coloris affichés</p></div>
+    <div class="cat-head"><div><h2>La collection</h2><p>${cards.length} modèle${cards.length>1?'s':''}</p></div>
       <div class="filters" role="group" aria-label="Filtrer">
         ${[["tout","Tout"],["tshirts","T-shirts"],["polos","Polos"]].map(([k,l])=>`<button class="chip" data-f="${k}" aria-pressed="${filter===k}">${l}</button>`).join("")}
       </div></div>
     <div class="grid">${cards.map(({p,c,first})=>`
       <button class="card" data-p="${p.id}" data-c="${c}" aria-label="Voir ${title(p)} ${COLORS[c].n}">
         <div class="pic">${p.tag&&first?`<span class="tag ${p.tagRed?'red':''}">${p.tag}</span>`:""}<img src="${p.img[c]}" alt="${title(p)} ${COLORS[c].n}" loading="lazy" width="720" height="894"></div>
-        <div class="meta"><h3>${title(p)}</h3><span class="price">${fmt(p.price)}</span></div>
-        <div class="meta"><span class="sub">${COLORS[c].n}</span><span class="swatches">${p.colors.map(x=>`<span class="${x===c?'on':''}" style="background:${COLORS[x].c}"></span>`).join("")}</span></div>
+        <div class="meta"><h3>${title(p)}</h3><span class="price">${p.was?`<s>${fmt(p.was)}</s> `:""}${fmt(p.price)}</span></div>
+        <div class="meta"><span class="sub">${p.colors.length>1?p.colors.length+" coloris":COLORS[c].n}</span><span class="swatches">${p.colors.map(x=>`<span style="background:${COLORS[x].c}"></span>`).join("")}</span></div>
       </button>`).join("")}</div>
   </div></section>
   <section class="manifesto"><div class="wrap">
     <div class="mark" aria-hidden="true"></div>
-    <div><h2>Tropic chic rebel</h2><p>Des coupes classiques, des tons chauds et un palmier qui ne demande la permission à personne. dmwmb s'habille pour soi, pas pour plaire.</p></div>
+    <div><h2>Tropic chic rebel</h2><p>Des coupes classiques, des tons chauds et un palmier qui ne demande la permission à personne.</p></div>
   </div></section>`;
   view.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{filter=b.dataset.f; home(); document.getElementById("collection-s").scrollIntoView({block:"start"});});
   view.querySelectorAll(".card").forEach(b=>b.onclick=()=>{ sel={pid:b.dataset.p,color:b.dataset.c,size:null,qty:1}; location.hash="produit-"+b.dataset.p;});
@@ -330,12 +510,13 @@ function product(id){
     <div class="p-grid">
       <div>
         <div class="p-pic"><img id="pimg" src="${p.img[sel.color]}" alt="${title(p)} ${COLORS[sel.color].n}" width="720" height="894"></div>
+        ${p.views?`<div class="thumbs">${p.views.map((v,k)=>`<button data-v="${v.src}" aria-pressed="${k===0}" aria-label="Voir le ${v.l.toLowerCase()}"><img src="${v.src}" alt=""><span>${v.l}</span></button>`).join("")}</div>`:""}
         ${p.colors.length>1?`<div class="thumbs">${p.colors.map(c=>`<button data-t="${c}" aria-pressed="${sel.color===c}" aria-label="Voir en ${COLORS[c].n}"><img src="${p.img[c]}" alt=""></button>`).join("")}</div>`:""}
       </div>
       <div class="p-info">
         <div class="kind">${p.kind}${p.tag?` · ${p.tag}`:""}</div>
         <h1>${p.name}</h1>
-        <div class="price">${fmt(p.price)} <small class="muted" style="font-size:14px;font-weight:400">TTC</small></div>
+        <div class="price">${p.was?`<s>${fmt(p.was)}</s> `:""}${fmt(p.price)} <small class="muted" style="font-size:14px;font-weight:400">TTC</small></div>
         <p class="desc">${p.desc}</p>
         <div class="opt"><div class="opt-label"><span>Coloris : <span class="val" id="cname">${COLORS[sel.color].n}</span></span></div>
           <div class="colors">${p.colors.map(c=>`<button class="color" data-c="${c}" aria-pressed="${sel.color===c}" aria-label="${COLORS[c].n}" style="background:${COLORS[c].c}"></button>`).join("")}</div></div>
@@ -347,9 +528,7 @@ function product(id){
         <div class="buy-row"><button class="btn" id="add">Ajouter au panier</button><button class="btn ghost" id="buyNow">Acheter maintenant</button></div>
         <div class="facts">
           <details id="sg"><summary>Guide des tailles</summary>
-            <div class="tscroll"><table class="sizes-t"><tr><th>Taille</th>${SIZES.map(s=>`<th>${s}</th>`).join("")}</tr>
-            <tr><td>Largeur (cm)</td><td>49</td><td>52</td><td>55</td><td>58</td><td>61</td></tr>
-            <tr><td>Longueur (cm)</td><td>69</td><td>72</td><td>74</td><td>76</td><td>78</td></tr></table></div></details>
+            ${SIZE_TABLE}</details>
           <details><summary>Matière et entretien</summary><p>${p.kind==="Polo"?"Maille piquée 100 % coton, 210 g/m².":"Jersey 100 % coton biologique, 180 g/m²."} Lavage à 30 °C sur l'envers, pas de sèche-linge.</p></details>
           <details><summary>Livraison et retours</summary><p>Imprimé à la commande en France puis expédié sous 3 à 5 jours ouvrés. Livraison offerte dès ${SHIP_FREE} €. Retours acceptés sous 14 jours.</p></details>
         </div>
@@ -359,6 +538,7 @@ function product(id){
   const setColor=c=>{ sel.color=c; $("#pimg").src=p.img[c]; $("#pimg").alt=`${title(p)} ${COLORS[c].n}`; $("#cname").textContent=COLORS[c].n;
     view.querySelectorAll("[data-c]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.c===c)); view.querySelectorAll("[data-t]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t===c)); };
   $("#back").onclick=()=>{location.hash="collection";};
+  view.querySelectorAll("[data-v]").forEach(b=>b.onclick=()=>{ $("#pimg").src=b.dataset.v; view.querySelectorAll("[data-v]").forEach(x=>x.setAttribute("aria-pressed",x===b)); });
   view.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>setColor(b.dataset.c));
   view.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>setColor(b.dataset.t));
   view.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{sel.size=b.dataset.s; $("#err").textContent=""; view.querySelectorAll("[data-s]").forEach(x=>x.setAttribute("aria-pressed",x===b));});
@@ -443,7 +623,7 @@ function checkout(){
           <div class="row total"><span>Total TTC</span><span id="sumTot"></span></div>
         </div>
         <button class="btn pay" id="payBtn" type="submit" form="coForm">Payer</button>
-        <p class="legal">En validant, vous acceptez les conditions générales de vente. Droit de rétractation de 14 jours.</p>
+        <p class="legal">En validant, vous acceptez les <a href="#cgv">conditions générales de vente</a>. Droit de rétractation de 14 jours.</p>
       </aside>
     </div>
   </div></section>`;
@@ -497,6 +677,7 @@ function route(){
   else if(h==="paiement") checkout();
   else if(h==="confirmation") done();
   else if(h==="apropos") about();
+  else if(PAGES[h]) page(h);
   else {
     if(h==="tshirts") filter="tshirts"; else if(h==="polos") filter="polos"; else if(h==="accueil") filter="tout";
     home();
