@@ -286,7 +286,7 @@ const COLORS = {
   noir:{n:"Noir",c:"#1C1A18"}, rouge:{n:"Rouge",c:"#B8382A"}, jaune:{n:"Jaune soleil",c:"#E0A92E"}, blanc:{n:"Blanc",c:"#F5F3EF"}, bleu:{n:"Bleu roi",c:"#1F4FBF"}
 };
 const PRODUCTS = [
-  {id:"roots", kind:"T-shirt", name:"Roots", price:30, was:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/roots_noir.jpg",blanc:"img/roots_blanc.jpg",rouge:"img/roots_rouge.jpg",jaune:"img/roots_jaune.jpg",bleu:"img/roots_bleu.jpg"}, tag:"Promo signature", tagRed:true, cat:"tshirts",
+  {id:"roots", kind:"T-shirt", name:"Roots", price:30, was:35, colors:["blanc"], img:{blanc:"img/roots_blanc.jpg"}, tag:"Promo signature", tagRed:true, cat:"tshirts",
    desc:"Le grand palmier dmwmb aux racines puissantes, imprimé en grand sur le devant. « Don't mess with my business », « Mind your own business » : le t-shirt qui dit tout sans un mot."},
   {id:"vatos", kind:"T-shirt", name:"Vatos Libres", price:35, colors:["noir","blanc","rouge","jaune","bleu"], img:{noir:"img/vatos_noir.jpg",blanc:"img/vatos_blanc.jpg",rouge:"img/vatos_rouge.jpg",jaune:"img/vatos_jaune.jpg",bleu:"img/vatos_bleu.jpg"}, tag:"Nouveau", cat:"tshirts",
    desc:"« Tèt wo, menton an lè » : tête haute, menton levé. Lettrage gothique rouge et noir, signature au pinceau « Véli kon vatos »."},
@@ -690,5 +690,3 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeCart(); });
 window.addEventListener("hashchange",route);
 updateCount(); route();
 </script>
-
-</body></html>
